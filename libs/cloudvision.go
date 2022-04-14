@@ -36,10 +36,7 @@ func (c *CloudVisionClient) DetectText(ctx context.Context, b []byte) (types.Det
 	width := imageinfo.Bounds().Dx()
 	height := imageinfo.Bounds().Dy()
 
-	ictx := &vision.ImageContext{
-		LanguageHints: []string{"ja"},
-	}
-	annotations, err := c.client.DetectTexts(ctx, img, ictx, 10)
+	annotations, err := c.client.DetectTexts(ctx, img, nil, 10)
 	if err != nil {
 		return nil, err
 	}
