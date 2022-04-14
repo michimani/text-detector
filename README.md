@@ -1,6 +1,8 @@
 text-detector
 ===
 
+[![codecov](https://codecov.io/gh/michimani/text-detector/branch/main/graph/badge.svg?token=0MICL6IW6I)](https://codecov.io/gh/michimani/text-detector)
+
 This is a library for the Go language to detect text from images. It uses Amazon Rekognition or Google Cloud Vision for text detection.
 
 # How to use
