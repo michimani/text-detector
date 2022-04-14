@@ -10,13 +10,13 @@ type DetectedText struct {
 
 // Position is a structure representing the coordinates of
 // each vertex of the rectangular area containing each detected string.
-//    LT             RT
+//    LT (0,0)       RT (1,0)
 //     +-------------+
 //     |             |
 //     |  text area  |
 //     |             |
 //     +-------------+
-//    LB             RB
+//    LB (0,1)       RB (1,1)
 type Position struct {
 	// Left Top
 	LT Coordinate
@@ -35,7 +35,25 @@ type Coordinate struct {
 }
 
 // IsContainedIn determines whether the detected string is contained within the specified Position.
-func (dt DetectedText) IsContainedIn(target Position) bool {
+// example: true
+//        LT (0,0)                       RT (10,0)
+//  target +------------------------------+
+//         |                              |
+//         |     LT (1,1)      RT (9,1)   |
+//         |   dt +-------------+         |
+//         |      |             |         |
+//         |      |  text area  |         |
+//         |      |             |         |
+//         |      +-------------+         |
+//         |     LB (1,9)      RB (9,9)   |
+//         |                              |
+//         +------------------------------+
+//        LB (0,10)                      RB (10,10)
+func (dt *DetectedText) IsContainedIn(target Position) bool {
+	if dt == nil {
+		return false
+	}
+
 	return dt.Position.LT.X > target.LT.X && dt.Position.LT.Y > target.LT.Y &&
 		dt.Position.RT.X < target.RT.X && dt.Position.RT.Y > target.RT.Y &&
 		dt.Position.RB.X < target.RB.X && dt.Position.RB.Y < target.RB.Y &&
