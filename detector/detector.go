@@ -37,7 +37,7 @@ type NewInput struct {
 }
 
 // New generate new TextDetector.
-func New(ctx context.Context, in NewInput) (*TextDetector, error) {
+func New(ctx context.Context, in *NewInput) (*TextDetector, error) {
 	var client IDetectTextClient
 	switch in.ClientType {
 	case ClientTypeRekognition:
@@ -47,7 +47,6 @@ func New(ctx context.Context, in NewInput) (*TextDetector, error) {
 		}
 		client = c
 	case ClientTypeCloudVision:
-
 		c, err := libs.NewCloudVisionClient(context.Background())
 		if err != nil {
 			return nil, err
