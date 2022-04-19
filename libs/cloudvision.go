@@ -36,10 +36,8 @@ func (c *CloudVisionClient) DetectText(ctx context.Context, b []byte) (types.Det
 	width := imageinfo.Bounds().Dx()
 	height := imageinfo.Bounds().Dy()
 
-	ictx := &vision.ImageContext{
-		LanguageHints: []string{"ja"},
-	}
-	annotations, err := c.client.DetectTexts(ctx, img, ictx, 10)
+	// Fix MaxResult at 50 for now. (This value is the same of Amazon Rekognition's max results.)
+	annotations, err := c.client.DetectTexts(ctx, img, nil, 50)
 	if err != nil {
 		return nil, err
 	}
